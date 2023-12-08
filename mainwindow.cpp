@@ -72,7 +72,10 @@ void MainWindow::LossPackTable_Show()
 {
     for(int index = 0; index < PWL_NODE_NUM - 5; index++)
     {
-        LossPackTestOneLineShow(Loss->board->boardsta[index].node, Loss->board->boardsta[index].data, Loss->board->boardsta[index].start_data, Loss->board->boardsta[index].end_data,Loss->board->boardsta[index].reaend_data);
+        for(uint8_t i = 0;i< Loss->board->boardsta[index].page+1;i++)
+        {
+        LossPackTestOneLineShow(Loss->board->boardsta[index].node, Loss->board->boardsta[index].mangerpro[i].data, Loss->board->boardsta[index].mangerpro[i].start_data, Loss->board->boardsta[index].mangerpro[i].end_data,Loss->board->boardsta[index].mangerpro[i].reaend_data);
+        }
     }
 }
 
@@ -90,6 +93,7 @@ void MainWindow::on_QuerenButton_clicked()
 {
     /* 表格信息初始化 */
     NetTable_Init();
+    ui->LossPack_Widget->clearContents();
     /* 开始接收线程 */
     ui->progressBar->setValue(0);
     t_Recvthread->start();
@@ -112,6 +116,7 @@ void MainWindow::file_analysis_over()
     NetTable_Show();
     LossPackTable_Show();
     Loss->NodeInit();
+    Loss->board->ClearManagerPro();
     t_packethread->run();
 }
 
@@ -208,20 +213,14 @@ void MainWindow::LossPackTestOneLineShow(uint8_t pwlID, uint16_t * buf, uint16_t
     uint16_t t_Row = 0u;
     t_Col = GetPwlIDIndex(pwlID);
 
-    QColor a ;
-    a = QColor(0x00, 0x00, 0xFF);
 
-    if(pwlID == 17)
-    {
-        //uint8_t a = 0;
-    }
     QString F1hexStr = QString::number(raldata, 16);
     ui->LossPack_Widget->setItem(t_Row, t_Col, new QTableWidgetItem(F1hexStr));
 
     ui->LossPack_Widget->item(t_Row, t_Col)->setBackgroundColor(QColor(255,0,0));
 
     t_Row++;
-    for(int index = bufIndex; index < bufLen; index++)
+    for(int index = bufIndex+10; index < raldata-5; index++)
     {
         if(buf[index] == 0)
         {

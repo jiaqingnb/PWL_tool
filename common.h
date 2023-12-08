@@ -23,6 +23,8 @@ public:
 
     void LongToCharLE(uint32_t Input, uint8_t *pOutput);
 
+    uint64_t LongFromIntLE(const uint8_t *pInput);
+
     uint32_t Crc32(const uint8_t *pData,uint32_t DataLen);
 };
 

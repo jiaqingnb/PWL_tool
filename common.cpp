@@ -110,6 +110,21 @@ void common::LongToCharLE(uint32_t Input, uint8_t *pOutput)
     *(pOutput + 1) =  ( uint8_t)((Input>>8) & 0xff);
     *pOutput = ( uint8_t)(Input & 0xff);
 }
+
+uint64_t common::LongFromIntLE(const uint8_t *pInput)
+{
+    uint64_t Templong;
+    Templong = ( *(pInput+3) );
+    Templong = ( Templong<<8 ) + ( *(pInput+2) );
+    Templong = ( Templong<<8 ) + ( *(pInput+1) );
+    Templong = ( Templong<<8 ) + ( *(pInput) );
+    Templong = ( Templong<<8 ) + ( *(pInput+7) );
+    Templong = ( Templong<<8 ) + ( *(pInput+6) );
+    Templong = ( Templong<<8 ) + ( *(pInput+5) );
+    Templong = ( Templong<<8 ) + ( *(pInput+4) );
+    return Templong;
+}
+
 /*
 *  功能描述： CRC32函数，计算过程如下，注意：计算CRC是从输入数据第一个字节的最高BIT开始的
 *             采用的多项式0x4c11db7L，初始值为0x00000000,未镜像，结果异或系数为0x00000000
