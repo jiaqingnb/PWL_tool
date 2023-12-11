@@ -31,7 +31,8 @@ SOURCES += \
         mainwindow.cpp \
     packet_loss.cpp \
     board_mapping/board_mapping.cpp \
-    packethread.cpp
+    packethread.cpp \
+    timestamp.cpp
 
 HEADERS += \
     RecvThread.h \
@@ -39,7 +40,8 @@ HEADERS += \
         mainwindow.h \
     packet_loss.h \
     board_mapping/board_mapping.h \
-    packethread.h
+    packethread.h \
+    timestamp.h
 
 FORMS += \
         mainwindow.ui \

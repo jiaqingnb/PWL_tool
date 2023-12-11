@@ -10,7 +10,7 @@
 #include "packet_loss.h"
 
 PWlloss* Loss = new PWlloss;
-uint8_t g_PwlNodeId[PWL_NODE_NUM] = {0,0,17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 245, 246, 243, 244, 241, 240, 255};
+uint8_t g_PwlNodeId[PWL_NODE_NUM] = {0,0,17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 245, 246, 243, 244, 241, 242, 255};
 extern uint8_t NodeId[18];
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

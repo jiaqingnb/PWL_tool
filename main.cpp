@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    w.setWindowTitle("PWL分析工具 V7.0.0");
+    w.setWindowTitle("PWL分析工具 V7.0.1");
     qDebug()<<"Version:"<< VER_PROJECT<<"." << VER_MAJOR<<"." << VER_MINOR;
 
     return a.exec();

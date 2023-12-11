@@ -42,7 +42,7 @@ public:
 
     board_mapping();
 
-    void getnodenum(uint8_t node,uint16_t packnum);
+    void socdate(uint8_t* data);
 
     void parsedta(uint8_t* data);
 
@@ -51,6 +51,7 @@ public:
     s_boardpage boardsta[MANAGERPRO];//管理器
 private:
 
+    void getnodenum(uint8_t node,uint16_t packnum);
 
 };
 

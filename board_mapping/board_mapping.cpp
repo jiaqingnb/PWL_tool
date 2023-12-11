@@ -13,6 +13,10 @@ board_mapping::board_mapping()
     }
 
 }
+void board_mapping::socdate(uint8_t* data)
+{
+
+}
 /*获取每包PRES数据*/
 void board_mapping::parsedta(uint8_t* data)
 {

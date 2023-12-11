@@ -22,7 +22,7 @@ public:
     }
     void NodeInit();
     void setname(QString path);
-    void TimestampToTime1(uint64_t time, uint8_t g_frame);
+//    void TimestampToTime1(uint64_t time, uint8_t g_frame);
     board_mapping* board = new board_mapping;
 private:
     void Lossparsing();
