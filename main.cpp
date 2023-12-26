@@ -2,8 +2,8 @@
 #include <QApplication>
 
 #define VER_PROJECT  07
-#define VER_MAJOR    01
-#define VER_MINOR    00
+#define VER_MAJOR    00
+#define VER_MINOR    01
 
 int main(int argc, char *argv[])
 {

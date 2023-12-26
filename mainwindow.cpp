@@ -81,7 +81,7 @@ void MainWindow::LossPackTable_Show()
 
 void MainWindow::on_action_triggered()
 {
-    QString path =  QFileDialog::getOpenFileName(this,"da","D:\\Work_wenjian");
+    QString path =  QFileDialog::getOpenFileName(this,"文件","D:\\Work_wenjian");
 
     ui->lineEdit->setText(path);
 
@@ -257,3 +257,11 @@ void MainWindow::ClearTable(QTableWidget * t_tableWidget)
     t_tableWidget->clearContents();
 }
 
+
+void MainWindow::on_RealtimeButton_clicked()
+{
+    QString path;
+    path = ui->lineEdit_realtime->text();
+
+    t_syswatcher->addWatchPath(path);
+}

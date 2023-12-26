@@ -6,6 +6,7 @@
 #include "packet_loss.h"
 #include "packethread.h"
 #include <QTableWidget>
+#include "syswatcher.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,7 +22,7 @@ public:
     RecvThread * t_Recvthread;
     packethread* t_packethread = new packethread;
     //board_mapping* board = new board_mapping;
-
+    syswatcher* t_syswatcher = new syswatcher;
 
 private slots:
     void on_action_triggered();
@@ -31,6 +32,8 @@ private slots:
     void on_progressBar_valueChanged(int value);
 
     void file_analysis_over();
+
+    void on_RealtimeButton_clicked();
 
 private:
     QByteArray sd;

@@ -15,7 +15,7 @@
 #define FirstNum 10     //起始包序号
 #define LsatNum 5       //结束包序号
 
-#define PAGEPRONUM   3    //页数量
+#define PAGEPRONUM   30    //页数量
 #define MANAGERPRO  18    //管理器数量
 
 typedef struct
