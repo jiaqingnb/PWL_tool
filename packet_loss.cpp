@@ -112,9 +112,11 @@ void PWlloss::Frame_type(uint8_t* data)
             if(index != 0xff)
             {
               packloss->pwlnode[index].prescnt++;
+#if 0  //测试代码——测试时间戳解析函数
               uint64_t timeLen = com.LongFromIntLE(&data[12]);
               QString tme = Timestamp::Gettime().TimestampToTime1(timeLen,4);
               //qDebug()<<tme;
+#endif
             }
             board->parsedta(data);
         break;

@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->horizontalHeader()->show();
 
+     t_syswatcher = new syswatcher;
+
+     connect(t_syswatcher, SIGNAL(newfileOver()), this, SLOT(Automatic_identification()));
     /* 创建接收线程 */
     t_Recvthread = new RecvThread(this);
 
@@ -61,8 +64,8 @@ void MainWindow::LossPackTable_Init()
     ui->LossPack_Widget->setHorizontalHeaderItem(13, new QTableWidgetItem("18"));
     ui->LossPack_Widget->setHorizontalHeaderItem(14, new QTableWidgetItem("243"));
     ui->LossPack_Widget->setHorizontalHeaderItem(15, new QTableWidgetItem("244"));
-    ui->LossPack_Widget->setHorizontalHeaderItem(16, new QTableWidgetItem("240"));
-    ui->LossPack_Widget->setHorizontalHeaderItem(17, new QTableWidgetItem("241"));
+    ui->LossPack_Widget->setHorizontalHeaderItem(16, new QTableWidgetItem("241"));
+    ui->LossPack_Widget->setHorizontalHeaderItem(17, new QTableWidgetItem("242"));
     /* 单元格大小与内容匹配 */
     ui->LossPack_Widget->resizeColumnsToContents();
     ui->LossPack_Widget->resizeRowsToContents();
@@ -107,11 +110,13 @@ void MainWindow::on_progressBar_valueChanged(int value)
 void MainWindow::file_analysis_over()
 {
     ui->progressBar->setValue(100);
-    //PWlloss::loss().setname(t_Recvthread->GetFilePath());
+
     Loss->setname(t_Recvthread->GetFilePath());
+#if 0
     qDebug()<<"soc = "<<packloss->soccnt;//调试打印——可删除
     qDebug()<<"soa = "<<packloss->soacnt;
-    qDebug()<<"node[3].pres = "<<packloss->pwlnode[18].prescnt;
+    qDebug()<<"node[3].pres = "<<packloss->pwlnode[20].prescnt;
+#endif
     /* 处理结束后 显示表格 */
     NetTable_Show();
     LossPackTable_Show();
@@ -226,7 +231,7 @@ void MainWindow::LossPackTestOneLineShow(uint8_t pwlID, uint16_t * buf, uint16_t
         {
             QString hexStr = QString::number(index, 16);
             SetTableValue_String(ui->LossPack_Widget, t_Row++, t_Col, hexStr);
-            //SetTableValue_Int(ui->LossPack_Widget, t_Row++, t_Col, index);
+
             qDebug()<<"index = "<< index;
         }
     }
@@ -264,4 +269,13 @@ void MainWindow::on_RealtimeButton_clicked()
     path = ui->lineEdit_realtime->text();
 
     t_syswatcher->addWatchPath(path);
+}
+
+void MainWindow::Automatic_identification()
+{
+    ui->LossPack_Widget->clearContents();
+    qDebug()<<"anliszy path:"<<t_syswatcher->lastnewfile;
+    t_Recvthread->SetFilePath(t_syswatcher->lastnewfile);
+    t_Recvthread->start();
+
 }

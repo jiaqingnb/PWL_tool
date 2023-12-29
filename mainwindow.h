@@ -22,7 +22,7 @@ public:
     RecvThread * t_Recvthread;
     packethread* t_packethread = new packethread;
     //board_mapping* board = new board_mapping;
-    syswatcher* t_syswatcher = new syswatcher;
+    syswatcher* t_syswatcher;
 
 private slots:
     void on_action_triggered();
@@ -34,6 +34,8 @@ private slots:
     void file_analysis_over();
 
     void on_RealtimeButton_clicked();
+
+    void Automatic_identification();
 
 private:
     QByteArray sd;

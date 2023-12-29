@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\board_mapping"
   ],
-  "SelectedNode": "\\board_mapping.cpp",
+  "SelectedNode": "\\board_mapping\\board_mapping.cpp",
   "PreviewInSolutionExplorer": false
 }
