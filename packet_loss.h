@@ -8,12 +8,18 @@
 #include "QFileDialog"
 #include <QDirIterator>
 #include <QFileInfo>
-#include "RecvThread.h"
+//#include "RecvThread.h"
 #include "common.h"
 #include "board_mapping/board_mapping.h"
 
-class PWlloss
+#define PWL_NODE_NUM 23
+#define ROW_MAX     1000
+#define DATA_TYPE 0x00000006
+
+class PWlloss : public QObject
 {
+    Q_OBJECT
+
 public:
     static PWlloss& loss()
     {
@@ -22,12 +28,14 @@ public:
     }
     void NodeInit();
     void setname(QString path);
-//    void TimestampToTime1(uint64_t time, uint8_t g_frame);
     board_mapping* board = new board_mapping;
 private:
     void Lossparsing();
     void Frame_type(uint8_t* data);
     uint8_t Searching_node(uint8_t type);/*查询节点表*/
+
+signals:
+    void showBarValue(int);
 };
 
 

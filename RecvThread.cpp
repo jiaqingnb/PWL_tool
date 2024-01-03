@@ -17,7 +17,7 @@ void RecvThread::SetFilePath(QString t_filepath)
 {
     QFileInfo fileInfo(t_filepath);
     srcFilePath = t_filepath;
-    destFilePath = fileInfo.absolutePath() + "/PwlDate.dat";
+//    destFilePath = fileInfo.absolutePath() + "/PwlDate.dat";
 }
 
 void RecvThread::MakeNewFile()
@@ -38,52 +38,60 @@ void RecvThread::MakeNewFile()
 void RecvThread::run()
 {
     qDebug()<<"RecvThread is start";
-    WriteDataToBuf();
+
+    WriteDataToBuf(p_packloss);
     emit analysisOver();
     quit();
     qDebug()<<"RecvThread is exit";
 }
 
-void RecvThread::WriteDataToBuf()
+PWlloss* RecvThread::p_func(PWlloss* p_packloss)
 {
-    QDataStream srcStream(&srcFile);
-    QDataStream destStream(&destFile);
-    char  t_temp[1024 * 2];
-    uint32_t t_len = 0u;
-    uint32_t t_type = 0u;
+    PWlloss* p = p_packloss;
+    return p;
+}
 
-    uint64_t fileSize = 0u;
-    QFileInfo fileInfo(srcFilePath);
-    fileSize = fileInfo.size();
-    uint64_t i = 0u;
-    MakeNewFile();
+void RecvThread::WriteDataToBuf(PWlloss* p_packloss)
+{
+    p_packloss->setname(srcFilePath);
+//    QDataStream srcStream(&srcFile);
+//    QDataStream destStream(&destFile);
+//    char  t_temp[1024 * 2];
+//    uint32_t t_len = 0u;
+//    uint32_t t_type = 0u;
 
-    srcFile.open(QFile::ReadOnly);
-    destFile.open(QFile::ReadWrite | QFile::Truncate);
-    qDebug()<<"WriteDataToBuf";
+//    uint64_t fileSize = 0u;
+//    QFileInfo fileInfo(srcFilePath);
+//    fileSize = fileInfo.size();
+//    uint64_t i = 0u;
+//    MakeNewFile();
 
-    while(i < fileSize)
-    {
-        /* 数据类型 */
-        srcStream.readRawData(&t_temp[0], 4);
-        t_type = LongFromCharLE((uint8_t *)&t_temp[0]);
+//    srcFile.open(QFile::ReadOnly);
+//    destFile.open(QFile::ReadWrite | QFile::Truncate);
+//    qDebug()<<"WriteDataToBuf";
 
-        /* 数据长度 */
-        srcStream.readRawData(&t_temp[4], 4);
-        t_len = LongFromCharLE((uint8_t *)&t_temp[4]);
+//    while(i < fileSize)
+//    {
+//        /* 数据类型 */
+//        srcStream.readRawData(&t_temp[0], 4);
+//        t_type = LongFromCharLE((uint8_t *)&t_temp[0]);
 
-        srcStream.readRawData(&t_temp[8], t_len - 8);
+//        /* 数据长度 */
+//        srcStream.readRawData(&t_temp[4], 4);
+//        t_len = LongFromCharLE((uint8_t *)&t_temp[4]);
 
-        if(t_type == DATA_TYPE)
-        {
-            destStream.writeRawData(&t_temp[0], t_len);
-        }
-        i = i + t_len;
-        emit showBarValue(((i * 100) / fileSize));
-    }
+//        srcStream.readRawData(&t_temp[8], t_len - 8);
 
-    srcFile.close();
-    destFile.close();
+//        if(t_type == DATA_TYPE)
+//        {
+//            destStream.writeRawData(&t_temp[0], t_len);
+//        }
+//        i = i + t_len;
+//        emit showBarValue(((i * 100) / fileSize));
+//    }
+
+//    srcFile.close();
+//    destFile.close();
 }
 
 uint32_t RecvThread::LongFromChar(const uint8_t *pInput)

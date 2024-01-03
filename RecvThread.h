@@ -8,16 +8,16 @@
 #include "QFileDialog"
 #include <QDirIterator>
 #include <QFileInfo>
+#include "packet_loss.h"
 
-#define PWL_NODE_NUM 23
-#define ROW_MAX     1000
-#define DATA_TYPE 0x00000006
+
 
 class RecvThread : public QThread
 {
     Q_OBJECT
 
 public:
+    PWlloss* p_packloss = new PWlloss;
     explicit RecvThread(QObject *parent = nullptr);
     void SetFilePath(QString t_filepath);
     void SetSourceFilePath(QString t_filepath);
@@ -29,13 +29,15 @@ protected:
     void run();
 
 private:
+
     QFile srcFile;
     QFile destFile;
     QString srcFilePath;
     QString destFilePath;
     bool m_stop = false;
-    void WriteDataToBuf();
+    void WriteDataToBuf(PWlloss* p_packloss);
     void MakeNewFile();
+    PWlloss* p_func(PWlloss* p_packloss);
 
 signals:
     void analysisOver();

@@ -32,6 +32,7 @@ typedef struct
 {
   uint32_t  node;//节点
   uint8_t page;//页号
+  uint16_t flag;
   s_ManagerPro mangerpro[PAGEPRONUM];//页
 }s_boardpage;
 #pragma pack(pop)

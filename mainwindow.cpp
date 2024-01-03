@@ -40,8 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
     /* 创建接收线程 */
     t_Recvthread = new RecvThread(this);
 
+    t_Recvthread->p_packloss = Loss;
     connect(t_Recvthread, SIGNAL(analysisOver()), this, SLOT(file_analysis_over()));
-    connect(t_Recvthread, SIGNAL(showBarValue(int)), this, SLOT(on_progressBar_valueChanged(int)));
+    connect(Loss, SIGNAL(showBarValue(int)), this, SLOT(on_progressBar_valueChanged(int)));
 }
 
 MainWindow::~MainWindow()
@@ -111,7 +112,7 @@ void MainWindow::file_analysis_over()
 {
     ui->progressBar->setValue(100);
 
-    Loss->setname(t_Recvthread->GetFilePath());
+    //Loss->setname(t_Recvthread->GetFilePath());
 #if 0
     qDebug()<<"soc = "<<packloss->soccnt;//调试打印——可删除
     qDebug()<<"soa = "<<packloss->soacnt;
@@ -121,7 +122,7 @@ void MainWindow::file_analysis_over()
     NetTable_Show();
     LossPackTable_Show();
     Loss->NodeInit();
-    Loss->board->ClearManagerPro();
+    //Loss->board->ClearManagerPro();//在实时分析场景下，此处不可清空管理器数据，应该保留每一次的数据，在本次实时抓取结束后统一显示在
     t_packethread->run();
 }
 
