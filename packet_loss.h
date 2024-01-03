@@ -49,6 +49,8 @@ typedef struct
 {
     uint32_t soacnt;//SOA计数器
     uint32_t soccnt;//SOC计数器
+    uint64_t soctime;//SOC时间戳
+    uint64_t soclasttime;//上一个SOC时间戳
     s_node  pwlnode[PWL_NODE_NUM];//节点
 }s_packloss;
 

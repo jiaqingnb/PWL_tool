@@ -2,6 +2,8 @@
 #include "common.h"
 #include "timestamp.h"
 
+#include <QCoreApplication>
+
 #define SOC  0x00000001
 #define PREQ 0x00000003
 #define PRES 0x00000004
@@ -31,6 +33,8 @@ void PWlloss::NodeInit()
     uint8_t i;
     packloss->soacnt = 0;
     packloss->soccnt = 0;
+    packloss->soctime = 0;
+    packloss->soclasttime = 0;
     for(i=0;i<PWL_NODE_NUM;i++)
     {
        packloss->pwlnode[i].node = g_PwlNodeId[i];
@@ -103,9 +107,13 @@ void PWlloss::Frame_type(uint8_t* data)
 #if 1  //测试代码——测试时间戳解析函数
             if(1)
             {
-              uint64_t timeLen = com.LongFromIntLE(&data[12]);
-              QString tme = Timestamp::Gettime().TimestampToTime1(timeLen,4);
-              qDebug()<<tme;
+              packloss->soclasttime = packloss->soctime;
+              packloss->soctime = com.LongFromIntLE(&data[12]);
+              if(((packloss->soctime - packloss->soclasttime) > 2500) && packloss->soclasttime != 0)
+              {
+                  QString tme = Timestamp::Gettime().TimestampToTime1(packloss->soctime,frame);
+                  qWarning()<<tme<<packloss->soctime - packloss->soclasttime;
+              }
             }
 #endif
 

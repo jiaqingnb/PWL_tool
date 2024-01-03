@@ -33,7 +33,8 @@ SOURCES += \
     board_mapping/board_mapping.cpp \
     packethread.cpp \
     timestamp.cpp \
-    syswatcher.cpp
+    syswatcher.cpp \
+    log.cpp
 
 HEADERS += \
     RecvThread.h \
@@ -43,7 +44,8 @@ HEADERS += \
     board_mapping/board_mapping.h \
     packethread.h \
     timestamp.h \
-    syswatcher.h
+    syswatcher.h \
+    log.h
 
 FORMS += \
         mainwindow.ui \
